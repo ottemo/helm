@@ -1,0 +1,53 @@
+replicaCount: 1
+
+image:
+  repository: ottemo/dashboardn
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 9000
+  sport: 443
+
+
+ENV: stage
+APIURL: "http://api-test:3000"
+MEDIAPATH: "/home/media"
+MEDIAFOLDER: "/home/media"
+
+
+
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
