@@ -10,10 +10,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: LoadBalancer
+#  type: LoadBalancer
   port: 80
   targetPort: 9000
-  sport: 443
+#  sport: 443
 
 
 ENV: stage

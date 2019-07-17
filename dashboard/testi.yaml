@@ -1,0 +1,34 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: dashboard-gateway
+  namespace: test
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-board
+      protocol: HTTP
+    hosts:
+    - "test.ottemo.speroteck-dev.com"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dashboard-vs
+  namespace: test
+spec:
+  hosts:
+  - "test.ottemo.speroteck-dev.com"
+  gateways:
+  - dashboard-gateway
+  http:
+  - match:
+    - port: 80
+    route:
+    - destination:
+        host: dashboard
+        port:
+          number: 80
