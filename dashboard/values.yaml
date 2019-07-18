@@ -17,23 +17,23 @@ service:
 
 
 ENV: stage
-APIURL: "http://api-test:3000"
+APIURL: "http://api:3000"
 MEDIAPATH: "/home/media"
 MEDIAFOLDER: "/home/media"
 
 
 
 
-ingress:
-  enabled: false
-  annotations: {}
+#ingress:
+#  enabled: false
+#  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths: []
+#  hosts:
+#    - host: chart-example.local
+#      paths: []
 
-  tls: []
+#  tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local

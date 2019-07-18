@@ -22,8 +22,11 @@ service:
 #  targetPort: 3000
 
 
-MONGOHOST: 127.0.0.1
-MONGODB: test
+PGHOST: 127.0.0.1
+PGPORT: 1000
+PGUSER: test
+PGPASSWD: test
+PGDB: test
 
 ingress:
   enabled: false
