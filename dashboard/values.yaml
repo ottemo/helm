@@ -15,7 +15,7 @@ service:
   targetPort: 9000
 #  sport: 443
 
-
+DASHBOARDURL: test123
 ENV: stage
 APIURL: "http://api:3000"
 MEDIAPATH: "/home/media"

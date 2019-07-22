@@ -35,7 +35,7 @@ spec:
     tls:
       httpsRedirect: true
     hosts:
-    - "{{.Release.Namespace}}.ottemo.speroteck-dev.com"
+    - "{{ .Values.DASHBOARDURL }}.ottemo.speroteck-dev.com"
   - port:
       number: 443
       name: https
@@ -45,7 +45,7 @@ spec:
       serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
       privateKey: /etc/istio/ingressgateway-certs/tls.key
     hosts:
-    - "{{.Release.Namespace}}.ottemo.speroteck-dev.com"
+    - "{{ .Values.DASHBOARDURL }}.ottemo.speroteck-dev.com"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -53,7 +53,7 @@ metadata:
   name: dashboard-vs
 spec:
   hosts:
-  - "{{.Release.Namespace}}.ottemo.speroteck-dev.com"
+  - "{{ .Values.DASHBOARDURL }}.ottemo.speroteck-dev.com"
   gateways:
   - dashboard-gateway
   http:
