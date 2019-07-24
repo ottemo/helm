@@ -27,6 +27,8 @@ PGPORT: 1000
 PGUSER: test
 PGPASSWD: test
 PGDB: test
+APIURL: test123.ottemo.speroteck-dev.com
+
 
 ingress:
   enabled: false
