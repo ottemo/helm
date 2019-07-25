@@ -25,7 +25,15 @@ spec:
     istio: ingressgateway
   servers:
   - port:
-      number: 30300
+      number: 80
+      name: http-api
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+    hosts:
+    - "{{ .Values.APIURL }}"
+  - port:
+      number: 443
       name: https
       protocol: HTTPS
     tls:
