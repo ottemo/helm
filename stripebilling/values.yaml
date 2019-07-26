@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ottemo/stripebilling
-  tag: 1
+  tag: latest
   pullPolicy: Always
 
 imagePullSecrets: []
