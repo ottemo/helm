@@ -8,8 +8,8 @@ metadata:
     "helm.sh/hook": test-success
 spec:
   containers:
-    - name: wget
-      image: busybox
-      command: ['wget']
-      args:  ['{{ include "stripebilling.fullname" . }}:{{ .Values.service.port }}']
+    - name: curl
+      image: radial/busyboxplus:curl
+      command: ['curl']
+      args:  ['-i','-X OPTIONS','{{ include "stripebilling.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
