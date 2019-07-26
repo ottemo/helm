@@ -47,13 +47,11 @@ spec:
           - name: STRIPEURL
             value: "{{ .Values.STRIPEURL }}"
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: 80
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: 80
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

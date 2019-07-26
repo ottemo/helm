@@ -11,5 +11,5 @@ spec:
     - name: curl
       image: radial/busyboxplus:curl
       command: ['curl']
-      args:  ['-i','-X OPTIONS','{{ include "stripebilling.fullname" . }}:{{ .Values.service.port }}']
+      args:  ['-X OPTIONS','{{ include "stripebilling.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
