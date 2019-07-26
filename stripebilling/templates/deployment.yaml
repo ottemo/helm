@@ -30,6 +30,8 @@ spec:
           env:
           - name: JURL
             value: "{{ .Values.JURL }}"
+          - name: JSURL
+            value: "{{ .Values.JSURL }}"
           - name: JUSER
             value: "{{ .Values.JUSER }}"
           - name: MHOST

@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ottemo/stripebilling
-  tag: latest
+  tag: 1
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -20,6 +20,7 @@ service:
 STRIPEURL: stripe.ottemo.speroteck-dev.com
 JURL: http://127.0.0.1:8080
 JUSER: test:test
+JSURL: http://127.0.0.1:8080
 #HOST:
 #PORT:
 MHOST: 127.0.0.1
