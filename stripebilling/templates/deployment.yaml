@@ -44,6 +44,8 @@ spec:
             value: "{{ .Values.MFROM }}"
           - name: MSUBJECT
             value: "{{ .Values.MSUBJECT }}"
+          - name: STRIPEURL
+            value: "{{ .Values.STRIPEURL }}"
           livenessProbe:
             httpGet:
               path: /

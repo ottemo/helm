@@ -17,7 +17,7 @@ service:
   port: 80
 
 
-STRIPEURL: stripebilling.ottemo.speroteck-dev.com
+STRIPEURL: stripe.ottemo.speroteck-dev.com
 JURL: http://127.0.0.1:8080
 JUSER: test:test
 #HOST:
