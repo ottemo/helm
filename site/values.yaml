@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  repository: ottemo/site
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  port: 80
+  targetPort: 80
+
+SITEURL: test123.ottemo.io
+
+resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
