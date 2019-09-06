@@ -42,8 +42,8 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
-      privateKey: /etc/istio/ingressgateway-certs/tls.key
+      serverCertificate: /etc/istio/ingressgateway-devsite-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-devsite-certs/tls.key
     hosts:
     - "{{ .Values.SITEURL }}"
 ---
