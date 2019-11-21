@@ -1,0 +1,66 @@
+{{- if and .Values.storeng.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "store.storeng.fullname" . }}
+  labels:
+{{ include "store.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.storeng.service.type }}
+  ports:
+    - port: {{ .Values.storeng.service.port }}
+      targetPort: {{ .Values.storeng.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "store.storeng.fullname" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: "{{ include "store.storeng.fullname" . }}-gateway"
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-board
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+    hosts:
+    - "{{ .Values.storeng.STOREURL }}"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key
+    hosts:
+    - "{{ .Values.storeng.STOREURL }}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: "{{ include "store.storeng.fullname" . }}-vs"
+spec:
+  hosts:
+  - "{{ .Values.storeng.STOREURL }}"
+  gateways:
+  - "{{ include "store.storeng.fullname" . }}-gateway"
+  http:
+  - match:
+    - port: 80
+    - port: 443
+    route:
+    - destination:
+        host: {{ include "store.storeng.fullname" . }}
+        port:
+          number: {{ .Values.storeng.service.port }}
+
+{{- end -}}

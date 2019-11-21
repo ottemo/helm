@@ -1,0 +1,84 @@
+{{- if and .Values.storeng.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "store.storeng.fullname" . }}
+  labels:
+        {{- include "store.storeng.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.storeng.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "store.storeng.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "store.storeng.labels" . | nindent 8 }}
+    spec:
+    {{- with .Values.storeng.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: "{{ include "store.name" . }}-{{ .Values.storeng.name }}"
+          image: "{{ .Values.storeng.image.repository }}:{{ .Values.storeng.image.tag }}"
+          imagePullPolicy: {{ .Values.storeng.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.storeng.service.targetPort }}
+              protocol: TCP
+          env:
+          - name: ENV
+            value: "{{ .Values.storeng.ENV }}"
+          - name: APIURL
+            value: "{{ .Values.storeng.APIURL }}"
+          - name: MEDIAPATH
+            value: "{{ .Values.storeng.MEDIAPATH }}"
+          - name: THEME
+            value: "{{ .Values.storeng.THEME }}"
+          - name: THEMEREPOURL
+            value: "{{ .Values.storeng.THEMEREPOURL }}"
+          - name: THEME_BRANCH
+            value: "{{ .Values.storeng.THEME_BRANCH }}"
+          - name: GITHUB_USER
+            value: "{{ .Values.storeng.GITHUB_USER }}"
+          - name: GITHUB_PASS
+            value: "{{ .Values.storeng.GITHUB_PASS }}"
+          - name: FBAPPID
+            value: "{{ .Values.storeng.FBAPPID }}"
+          - name: GOOGLECLIENTID
+            value: "{{ .Values.storeng.GOOGLECLIENTID }}"
+          - name: GOOGLEANALYTICSID
+            value: "{{ .Values.storeng.GOOGLEANALYTICSID }}"
+          - name: INSTAGRAMCLIENTID
+            value: "{{ .Values.storeng.INSTAGRAMCLIENTID }}"
+          - name: INSTAGRAMCLIENTTOCKEN
+            value: "{{ .Values.storeng.INSTAGRAMCLIENTTOCKEN }}"
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 90
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 90
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.storeng.resources | nindent 12 }}
+      {{- with .Values.storeng.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.storeng.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.storeng.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- end -}}

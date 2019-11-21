@@ -1,0 +1,160 @@
+storeng:
+
+  enabled: true
+
+  name: storeng
+
+  replicaCount: 1
+
+  image:
+    repository: ottemo/storeng
+    tag: latest
+    pullPolicy: Always
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  service:
+#    type: LoadBalancer
+    port: 80
+    targetPort: 8080
+#    sport: 443
+
+  STOREURL: test123.ottemo.io
+  ENV: stage
+  APIURL: "http://api:3000"
+  THEME: "demo"
+  THEMEREPOURL: "github.com/ottemo/demo"
+  GITHUB_USER: ""
+  GITHUB_PASS: ""
+  MEDIAFOLDER: "/home/ottemo.media"
+  FBAPPID: ""
+  GOOGLECLIENTID: ""
+  GOOGLEANALYTICSID: ""
+  THEME_BRANCH: ""
+  INSTAGRAMCLIENTID: ""
+  INSTAGRAMCLIENTTOCKEN: ""
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+api:
+
+  enabled: true
+
+  name: api
+
+  replicaCount: 1
+
+  image:
+    repository: ottemo/api
+    tag: latestsql
+    pullPolicy: Always
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  service:
+    annotations: {}
+    labels: {}
+    port: 3000
+#  type: LoadBalancer
+#   loadBalancerSourceRanges:
+#     - 0.0.0.0/0
+
+#  targetPort: 3000
+
+  APIURL: test123.ottemo.speroteck-dev.com
+
+  database:
+    type: sqlite
+    host: 127.0.0.1
+    port: 1000
+    user: test
+    password: test
+    dbname: test
+
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+dashboard:
+
+  enabled: true
+
+  name: dashboard
+
+  replicaCount: 1
+
+  image:
+    repository: ottemo/dashboardn
+    tag: latest
+    pullPolicy: Always
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  service:
+#    type: LoadBalancer
+    port: 80
+    targetPort: 9000
+#    sport: 443
+
+  DASHBOARDURL: test123
+  ENV: stage
+  APIURL: "http://api:3000"
+  MEDIAPATH: "/home/media"
+  MEDIAFOLDER: "/home/media"
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+redis:
+  enabled: true
+  nameOverride: store-redis
+  # Only used when internal redis is disabled
+  # host: redis
+  # Just omit the password field if your redis cluster doesn't use password
+  # password: redis
+  # port: 6379
+  master:
+    persistence:
+      enabled: true
+      # If change pvc size redis.master.persistence.size: 20Gi
