@@ -60,7 +60,7 @@ api:
 
   image:
     repository: ottemo/api
-    tag: latestsql
+    tag: latest
     pullPolicy: Always
 
   imagePullSecrets: []
